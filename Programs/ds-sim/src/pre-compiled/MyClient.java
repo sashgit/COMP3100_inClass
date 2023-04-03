@@ -47,11 +47,12 @@ public class MyClient {
         // create an array of string that is stored in parts
         String[] segments = response.split("\\s+");
         int jobID = Integer.parseInt(segments[2]);
+        int nRecs = Integer.parseInt(segments[1]);
 
         // for loop used to locate the server of the largest type
         // compare (use the compare function to find largest server) the core count and
         // if you find the largest type you assign all jobs to the server of that type
-        for (int i = 0; i < Integer.parseInt(segments[1]); i++) {
+        for (int i = 0; i < nRecs; i++) {
           // Send a GETS message, e.g., GETS All
           // Receive DATA nRecs recSize // e.g., DATA 5 124
 
