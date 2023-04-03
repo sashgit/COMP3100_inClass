@@ -67,8 +67,11 @@ public class MyClient {
         // then the previous core count then you make that
         // on the largest serverType
         if (coreCount > serverCount) {
-          serverType = largestServerType;
           // check to make sure the next server has more cores then the previous one
+          largestCore = coreCount;
+          largestType = serverType;
+          largestServerType = Integer.parseInt(jobSplit[1]);
+          numServersOfLargestType = Integer.parseInt(jobSplit[5]);
         }
 
         // print to server the JobID and the largest Server Type
