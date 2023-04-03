@@ -6,12 +6,14 @@ import java.net.Socket;
 public class MyClient.java
 {
 
-    public static void main(String[] args) throws Exception {
+  public static void main(String[] args) throws Exception {
 
     Boolean flag = true;
     String largestType = null;
     int largestCore = 0;
     int serverCount = 0;
+    int largestServerType = 0;
+    int numServersOfLargestType = 0;
    
     Socket s = new Socket("127.0.0.1", 50000);
    
@@ -90,11 +92,8 @@ public class MyClient.java
    
     // after we have found the server with the largest type we can start allocating jobs to this server
     out.println("SCHD " + jobID + " " + largestServerType + " 0");
-    
-               
             }
        }
-
 }
 
 // //job dispatcher that sends each job to a server of the largest type in a
