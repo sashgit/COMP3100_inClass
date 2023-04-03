@@ -79,7 +79,8 @@ public class MyClient {
         response = input.readLine(); // Receive a message
       }
     }
-    // close the socket
+
+    // close the socket as jobs have been scheduled
     socket.close();
   }
 }
