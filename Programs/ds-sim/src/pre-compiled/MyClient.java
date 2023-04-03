@@ -8,12 +8,9 @@ public class MyClient {
   public static void main(String[] args) throws Exception {
 
     // initialization of variables for servers and job handling
-    Boolean flag = true;
     String largestType = null;
     int largestCore = 0;
-    int serverCount = 0;
-    int largestServerType = 0;
-    int numServersOfLargestType = 0;
+    int largestServerID = 0;
 
     // connection to the server
     Socket socket = new Socket("127.0.0.1", 50000);
@@ -48,14 +45,13 @@ public class MyClient {
         response = input.readLine();
 
         // create an array of string that is stored in parts
-        String[] Segement = response.split("\\s+");
-        int jobID = Integer.parseInt(Segement[2]);
-        int Core = Integer.parseInt(Segement[4]);
+        String[] segments = response.split("\\s+");
+        int jobID = Integer.parseInt(segments[2]);
 
         // for loop used to locate the server of the largest type
         // compare (use the compare function to find largest server) the core count and
         // if you find the largest type you assign all jobs to the server of that type
-        for (int i = 0; i < Integer.parseInt(Segement[1]); i++) {
+        for (int i = 0; i < Integer.parseInt(segments[1]); i++) {
           // Send a GETS message, e.g., GETS All
           // Receive DATA nRecs recSize // e.g., DATA 5 124
 
@@ -64,8 +60,6 @@ public class MyClient {
 
           // using the SCHD use the jobID and largest serverType
           String[] jobSplit = response.split(" ");
-          int jobId = Integer.parseInt(jobSplit[0]);
-          String serverType = jobSplit[1];
           int coreCount = Integer.parseInt(jobSplit[4]);
 
           // if the current coreCount on the server is larger
@@ -74,20 +68,17 @@ public class MyClient {
           if (coreCount > largestCore) {
             // check to make sure the next server has more cores then the previous one
             largestCore = coreCount;
-            largestType = serverType;
-            largestServerType = Integer.parseInt(jobSplit[1]);
+            largestType = jobSplit[1];
+            largestServerID = Integer.parseInt(jobSplit[2]);
           }
-
-          // print to server the JobID and the largest Server Type
-          output.writeBytes("SCHD " + jobID + " " + largestServerType + " 0\n");
         }
+
+        // print to server the JobID and the largest Server Type
+        output.writeBytes("SCHD " + jobID + " " + largestType + " " + largestServerID + "\n");
+        response = input.readLine(); // Receive a message
       }
     }
-
-    // if we reach a point where the server responds with NONE then
-    // the jobs have finished being assigned
-    if (response.equals("NONE")) {
-      return;
-    }
+    // close the socket
+    socket.close();
   }
 }
