@@ -87,6 +87,8 @@ public class MyClient {
       out.println("SCHD " + jobID + " " + largestServerType + " 0");
     }
 
+    // if we reach a point where the server responds with NONE then
+    // the jobs have finished being assigned
     if (response.equals("NONE")) {
       break;
     }
