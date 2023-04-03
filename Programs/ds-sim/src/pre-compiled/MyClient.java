@@ -58,10 +58,10 @@ public class MyClient {
         response = input.readLine();
 
         // using the SCHD use the jobID and largest serverType
-        String[] jobInfo = response.split(" ");
-        int jobId = Integer.parseInt(jobInfo[0]);
-        String serverType = Integer.parseInt(jobInfo[1]);
-        int coreCount = Integer.parseInt(jobInfo[4]);
+        String[] jobSplit = response.split(" ");
+        int jobId = Integer.parseInt(jobSplit[0]);
+        String serverType = Integer.parseInt(jobSplit[1]);
+        int coreCount = Integer.parseInt(jobSplit[4]);
 
         // if the current coreCount on the server is larger
         // then the previous core count then you make that
