@@ -45,16 +45,13 @@ public class MyClient {
       // create an array of string that is stored in parts
       String[] Segement = response.split("\\s+");
       int jobID = Integer.parseInt(Segement[2]);
-      int runTimeEst = Integer.parseInt(Segement[3]);
       int Core = Integer.parseInt(Segement[4]);
-      int Memory = Integer.parseInt(Segement[5]);
 
       // for loop used to locate the server of the largest type
       // compare (use the compare function to find largest server) the core count and
       // if you find the largest type you assign all jobs to the server of that type
       for (int i = 0; i < nRecs; i++) {
         // Send a GETS message, e.g., GETS All
-
         // Receive DATA nRecs recSize // e.g., DATA 5 124
 
         // Receive each record
@@ -63,20 +60,19 @@ public class MyClient {
         // using the SCHD use the jobID and largest serverType
         String[] jobInfo = response.split(" ");
         int jobId = Integer.parseInt(jobInfo[0]);
+        String serverType = Integer.parseInt(jobInfo[1]);
         int coreCount = Integer.parseInt(jobInfo[4]);
 
         // if the current coreCount on the server is larger
         // then the previous core count then you make that
         // on the largest serverType
         if (coreCount > serverCount) {
-
+          serverType = largestServerType;
+          // check to make sure the next server has more cores then the previous one
         }
 
+        // print to server the JobID and the largest Server Type
         out.println("SCHD " + jobID + " " + largestServerType + " 0");
-
-        // Keep track of the largest server type and the number of servers of that type
-
-        // End For
       }
 
       // Send OK
