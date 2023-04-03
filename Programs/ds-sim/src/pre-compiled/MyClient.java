@@ -8,6 +8,8 @@ public class MyClient {
   public static void main(String[] args) throws Exception {
 
     // initialization of variables for servers and job handling
+    // flag ensures largest server is only found once
+    boolean flag = true;
     String largestType = null;
     int largestCore = 0;
     int largestServerID = 0;
@@ -31,7 +33,7 @@ public class MyClient {
     String response = input.readLine();
 
     // start to allocate jobs to servers
-    while (true) {
+    while (flag) {
       // send REDY
       output.writeBytes("REDY\n"); // Send REDY
       response = input.readLine(); // Receive a message
